@@ -1,5 +1,19 @@
 # todos-express-openidconnect
 
+## 配置
+
+修改 `routes/auth.js`:
+
+- L6-14 配置 appid、secret、oidc 等
+
+
+## 运行验证
+
+- 启动后访问 http://localhost:3000
+
+
+---
+
 This app illustrates how to use [Passport](https://www.passportjs.org/) with
 [Express](https://expressjs.com/) to sign users in via OpenID Connect.  Use this
 example as a starting point for your own web applications.

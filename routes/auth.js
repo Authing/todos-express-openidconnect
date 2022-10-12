@@ -3,13 +3,15 @@ var passport = require('passport');
 var OpenIDConnectStrategy = require('passport-openidconnect');
 
 
+const APP_HOST = 'https://testguoqing.authing.cn'; // 替换此处
+
 passport.use(new OpenIDConnectStrategy({
-  issuer: 'https://server.example.com',
-  authorizationURL: 'https://server.example.com/authorize',
-  tokenURL: 'https://server.example.com/token',
-  userInfoURL: 'https://server.example.com/userinfo',
-  clientID: process.env['CLIENT_ID'],
-  clientSecret: process.env['CLIENT_SECRET'],
+  issuer: APP_HOST,
+  authorizationURL: `${APP_HOST}/oidc/auth`,
+  tokenURL: `${APP_HOST}/oidc/token`,
+  userInfoURL: `${APP_HOST}/oidc/me`,
+  clientID: 'APP_ID', // 替换此处
+  clientSecret: 'APP_SECRET', // 替换此处
   callbackURL: '/oauth2/redirect',
   scope: [ 'profile' ]
 }, function verify(issuer, profile, cb) {
@@ -40,7 +42,7 @@ router.get('/oauth2/redirect', passport.authenticate('openidconnect', {
 
 router.post('/logout', function(req, res, next) {
   req.logout();
-  res.redirect('/');
+  res.redirect(`${APP_HOST}/login/profile/logout?redirect_uri=${encodeURIComponent('http://localhost:3000/')}`);
 });
 
 module.exports = router;
